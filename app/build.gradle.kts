@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.hilt.android.v250)
     kapt(libs.hilt.compiler.v250)
     implementation(libs.androidx.hilt.navigation.compose.v100)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

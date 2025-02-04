@@ -1,7 +1,14 @@
 package com.example.ngorbit21androidkotlin
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.example.ngorbit21androidkotlin.di.appModule
+import org.koin.core.context.startKoin
 
-@HiltAndroidApp
-class TodoApplication : Application()
+class TodoApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            modules(appModule)
+        }
+    }
+}

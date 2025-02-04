@@ -7,15 +7,12 @@ import com.example.ngorbit21androidkotlin.domain.usecase.AddTodoUseCase
 import com.example.ngorbit21androidkotlin.domain.usecase.DeleteTodoUseCase
 import com.example.ngorbit21androidkotlin.domain.usecase.GetTodosUseCase
 import com.example.ngorbit21androidkotlin.domain.usecase.UpdateTodoUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class TodoViewModel @Inject constructor(
+class TodoViewModel(
     private val getTodosUseCase: GetTodosUseCase,
     private val addTodoUseCase: AddTodoUseCase,
     private val deleteTodoUseCase: DeleteTodoUseCase,

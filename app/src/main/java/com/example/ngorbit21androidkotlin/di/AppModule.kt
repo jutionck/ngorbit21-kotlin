@@ -6,41 +6,26 @@ import com.example.ngorbit21androidkotlin.domain.usecase.AddTodoUseCase
 import com.example.ngorbit21androidkotlin.domain.usecase.DeleteTodoUseCase
 import com.example.ngorbit21androidkotlin.domain.usecase.GetTodosUseCase
 import com.example.ngorbit21androidkotlin.domain.usecase.UpdateTodoUseCase
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.example.ngorbit21androidkotlin.presentation.viewmodel.TodoViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object AppModule {
+val appModule = module {
 
-    @Provides
-    @Singleton
-    fun provideTodoRepository(): TodoRepository = TodoRepositoryImpl()
+    single<TodoRepository> { TodoRepositoryImpl() }
 
-    @Provides
-    @Singleton
-    fun provideGetTodosUseCase(repository: TodoRepository): GetTodosUseCase {
-        return GetTodosUseCase(repository)
-    }
+    factory { GetTodosUseCase(get()) }
+    factory { AddTodoUseCase(get()) }
+    factory { DeleteTodoUseCase(get()) }
+    factory { UpdateTodoUseCase(get()) }
 
-    @Provides
-    @Singleton
-    fun provideAddTodoUseCase(repository: TodoRepository): AddTodoUseCase {
-        return AddTodoUseCase(repository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideDeleteTodoUseCase(repository: TodoRepository): DeleteTodoUseCase {
-        return DeleteTodoUseCase(repository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideUpdateTodoUseCase(repository: TodoRepository): UpdateTodoUseCase {
-        return UpdateTodoUseCase(repository)
+    viewModel {
+        TodoViewModel(
+            getTodosUseCase = get(),
+            addTodoUseCase = get(),
+            deleteTodoUseCase = get(),
+            updateTodoUseCase = get()
+        )
     }
 }
+
