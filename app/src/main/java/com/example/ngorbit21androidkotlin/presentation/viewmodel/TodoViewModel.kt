@@ -7,12 +7,15 @@ import com.example.ngorbit21androidkotlin.domain.usecase.AddTodoUseCase
 import com.example.ngorbit21androidkotlin.domain.usecase.DeleteTodoUseCase
 import com.example.ngorbit21androidkotlin.domain.usecase.GetTodosUseCase
 import com.example.ngorbit21androidkotlin.domain.usecase.UpdateTodoUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TodoViewModel(
+@HiltViewModel
+class TodoViewModel @Inject constructor(
     private val getTodosUseCase: GetTodosUseCase,
     private val addTodoUseCase: AddTodoUseCase,
     private val deleteTodoUseCase: DeleteTodoUseCase,
@@ -34,10 +37,6 @@ class TodoViewModel(
         }
     }
 
-    fun getTodoById(id: Int): Todo? {
-        return todoItems.value.find { it.id == id }
-    }
-
     fun addTodo(todo: Todo) {
         viewModelScope.launch {
             addTodoUseCase(todo)
@@ -57,5 +56,9 @@ class TodoViewModel(
             updateTodoUseCase(todo)
             loadTodos()
         }
+    }
+
+    fun getTodoById(id: Int): Todo? {
+        return _todoItems.value.find { it.id == id }
     }
 }
