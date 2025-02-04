@@ -1,4 +1,4 @@
-package com.example.ngorbit21androidkotlin.ui.theme
+package com.example.ngorbit21androidkotlin.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
